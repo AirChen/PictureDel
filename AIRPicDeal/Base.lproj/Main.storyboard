@@ -1,25 +1,81 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                        <viewControllerLayoutGuide type="top" id="I9l-Hi-4J1"/>
+                        <viewControllerLayoutGuide type="bottom" id="ECo-Cu-ZV9"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vUF-7v-m33">
+                                <rect key="frame" x="0.0" y="64" width="414" height="672"/>
+                            </imageView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RR1-fo-SXU">
+                                <rect key="frame" x="0.0" y="20" width="414" height="44"/>
+                                <items>
+                                    <barButtonItem title="图片" id="bAw-hi-eY7"/>
+                                </items>
+                            </toolbar>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GeR-Dr-B7V">
+                                <rect key="frame" x="20" y="645" width="374" height="30"/>
+                                <subviews>
+                                    <slider opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="HGK-ru-pyS">
+                                        <rect key="frame" x="-2" y="0.0" width="348" height="31"/>
+                                    </slider>
+                                    <button opaque="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Z2-Fb-aWb">
+                                        <rect key="frame" x="344" y="0.0" width="30" height="30"/>
+                                        <state key="normal" title="确定"/>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="duK-Px-1an">
+                                <rect key="frame" x="47" y="260" width="320" height="216"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="GcC-Ni-cva"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="r3q-M7-wM9"/>
+                                </connections>
+                            </pickerView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ECo-Cu-ZV9" firstAttribute="top" secondItem="vUF-7v-m33" secondAttribute="bottom" id="5Gd-Zt-I4d"/>
+                            <constraint firstItem="RR1-fo-SXU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="76Q-kq-ZvA"/>
+                            <constraint firstItem="vUF-7v-m33" firstAttribute="top" secondItem="RR1-fo-SXU" secondAttribute="bottom" id="7P9-uf-cA9"/>
+                            <constraint firstItem="duK-Px-1an" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="NFi-No-xHw"/>
+                            <constraint firstItem="vUF-7v-m33" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="PPm-YS-oqL"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="RR1-fo-SXU" secondAttribute="trailing" constant="-20" id="PZy-se-PCz"/>
+                            <constraint firstItem="ECo-Cu-ZV9" firstAttribute="top" secondItem="GeR-Dr-B7V" secondAttribute="bottom" constant="61" id="avn-jb-aI9"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="vUF-7v-m33" secondAttribute="trailing" constant="-20" id="gwc-0s-jwJ"/>
+                            <constraint firstItem="GeR-Dr-B7V" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="kNe-yC-1ej"/>
+                            <constraint firstItem="GeR-Dr-B7V" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="lI4-4r-a4H"/>
+                            <constraint firstItem="duK-Px-1an" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="otC-pw-fUO"/>
+                            <constraint firstItem="RR1-fo-SXU" firstAttribute="top" secondItem="I9l-Hi-4J1" secondAttribute="bottom" id="snC-y1-XY9"/>
+                        </constraints>
                     </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="414" height="736"/>
+                    <connections>
+                        <outlet property="dealB" destination="6Z2-Fb-aWb" id="nMt-BG-9tg"/>
+                        <outlet property="imageView" destination="vUF-7v-m33" id="frv-uh-BiN"/>
+                        <outlet property="picBtn" destination="bAw-hi-eY7" id="oJh-AM-usa"/>
+                        <outlet property="picker" destination="duK-Px-1an" id="Rlz-UL-srx"/>
+                        <outlet property="sliderVal" destination="HGK-ru-pyS" id="h8x-iN-r2I"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="448" y="396.99999999999983"/>
         </scene>
     </scenes>
 </document>

@@ -15,6 +15,8 @@
 		543B7D7D1C81E34E008C6B1F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 543B7D7B1C81E34E008C6B1F /* LaunchScreen.storyboard */; };
 		543B7D881C81E34E008C6B1F /* AIRPicDealTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 543B7D871C81E34E008C6B1F /* AIRPicDealTests.m */; };
 		543B7D931C81E34E008C6B1F /* AIRPicDealUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 543B7D921C81E34E008C6B1F /* AIRPicDealUITests.m */; };
+		54832B7E1D22713100192ECB /* PicViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 54832B7D1D22713100192ECB /* PicViewModel.m */; };
+		F5497F55E67C70D678CE1603 /* Pods_AIRPicDeal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFC409266BA42CA01818AB2B /* Pods_AIRPicDeal.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		40C87B068A148A0150EE32C7 /* Pods-AIRPicDeal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AIRPicDeal.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AIRPicDeal/Pods-AIRPicDeal.debug.xcconfig"; sourceTree = "<group>"; };
 		543B7D6A1C81E34E008C6B1F /* AIRPicDeal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AIRPicDeal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		543B7D6E1C81E34E008C6B1F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		543B7D701C81E34E008C6B1F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -51,6 +54,11 @@
 		543B7D8E1C81E34E008C6B1F /* AIRPicDealUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AIRPicDealUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		543B7D921C81E34E008C6B1F /* AIRPicDealUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AIRPicDealUITests.m; sourceTree = "<group>"; };
 		543B7D941C81E34E008C6B1F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		54832B7C1D22713100192ECB /* PicViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PicViewModel.h; sourceTree = "<group>"; };
+		54832B7D1D22713100192ECB /* PicViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PicViewModel.m; sourceTree = "<group>"; };
+		54832B7F1D2271EE00192ECB /* GlobalHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlobalHeader.h; sourceTree = "<group>"; };
+		A85CB641A7BE37FF859407F7 /* Pods-AIRPicDeal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AIRPicDeal.release.xcconfig"; path = "Pods/Target Support Files/Pods-AIRPicDeal/Pods-AIRPicDeal.release.xcconfig"; sourceTree = "<group>"; };
+		DFC409266BA42CA01818AB2B /* Pods_AIRPicDeal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AIRPicDeal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5497F55E67C70D678CE1603 /* Pods_AIRPicDeal.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +94,8 @@
 				543B7D861C81E34E008C6B1F /* AIRPicDealTests */,
 				543B7D911C81E34E008C6B1F /* AIRPicDealUITests */,
 				543B7D6B1C81E34E008C6B1F /* Products */,
+				FF79092554CF5B514DE193F6 /* Pods */,
+				54CC974C8B6289BAC4D1B0A2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -105,6 +116,9 @@
 				543B7D711C81E34E008C6B1F /* AppDelegate.m */,
 				543B7D731C81E34E008C6B1F /* ViewController.h */,
 				543B7D741C81E34E008C6B1F /* ViewController.m */,
+				54832B7C1D22713100192ECB /* PicViewModel.h */,
+				54832B7D1D22713100192ECB /* PicViewModel.m */,
+				54832B7F1D2271EE00192ECB /* GlobalHeader.h */,
 				543B7D761C81E34E008C6B1F /* Main.storyboard */,
 				543B7D791C81E34E008C6B1F /* Assets.xcassets */,
 				543B7D7B1C81E34E008C6B1F /* LaunchScreen.storyboard */,
@@ -140,6 +154,23 @@
 			path = AIRPicDealUITests;
 			sourceTree = "<group>";
 		};
+		54CC974C8B6289BAC4D1B0A2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DFC409266BA42CA01818AB2B /* Pods_AIRPicDeal.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FF79092554CF5B514DE193F6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				40C87B068A148A0150EE32C7 /* Pods-AIRPicDeal.debug.xcconfig */,
+				A85CB641A7BE37FF859407F7 /* Pods-AIRPicDeal.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -147,9 +178,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 543B7D971C81E34E008C6B1F /* Build configuration list for PBXNativeTarget "AIRPicDeal" */;
 			buildPhases = (
+				DBE865166F0A790EF636A124 /* Check Pods Manifest.lock */,
 				543B7D661C81E34E008C6B1F /* Sources */,
 				543B7D671C81E34E008C6B1F /* Frameworks */,
 				543B7D681C81E34E008C6B1F /* Resources */,
+				BAC24B672F1778DA6C38A546 /* Embed Pods Frameworks */,
+				FDFF9F37415C1D2787BB143C /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -268,12 +302,61 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		BAC24B672F1778DA6C38A546 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AIRPicDeal/Pods-AIRPicDeal-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DBE865166F0A790EF636A124 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		FDFF9F37415C1D2787BB143C /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AIRPicDeal/Pods-AIRPicDeal-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		543B7D661C81E34E008C6B1F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				543B7D751C81E34E008C6B1F /* ViewController.m in Sources */,
+				54832B7E1D22713100192ECB /* PicViewModel.m in Sources */,
 				543B7D721C81E34E008C6B1F /* AppDelegate.m in Sources */,
 				543B7D6F1C81E34E008C6B1F /* main.m in Sources */,
 			);
@@ -412,6 +495,7 @@
 		};
 		543B7D981C81E34E008C6B1F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 40C87B068A148A0150EE32C7 /* Pods-AIRPicDeal.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = AIRPicDeal/Info.plist;
@@ -423,6 +507,7 @@
 		};
 		543B7D991C81E34E008C6B1F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A85CB641A7BE37FF859407F7 /* Pods-AIRPicDeal.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = AIRPicDeal/Info.plist;
@@ -490,7 +575,7 @@
 				543B7D961C81E34E008C6B1F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		543B7D971C81E34E008C6B1F /* Build configuration list for PBXNativeTarget "AIRPicDeal" */ = {
 			isa = XCConfigurationList;
@@ -499,6 +584,7 @@
 				543B7D991C81E34E008C6B1F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
 		};
 		543B7D9A1C81E34E008C6B1F /* Build configuration list for PBXNativeTarget "AIRPicDealTests" */ = {
 			isa = XCConfigurationList;
@@ -507,6 +593,7 @@
 				543B7D9C1C81E34E008C6B1F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
 		};
 		543B7D9D1C81E34E008C6B1F /* Build configuration list for PBXNativeTarget "AIRPicDealUITests" */ = {
 			isa = XCConfigurationList;
@@ -515,6 +602,7 @@
 				543B7D9F1C81E34E008C6B1F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
