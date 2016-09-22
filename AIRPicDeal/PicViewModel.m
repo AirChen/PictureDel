@@ -10,53 +10,45 @@
 
 @interface PicViewModel(){
     UIImagePickerController *imagePicker;
-    CIContext* ctx;
-    CIImage* tmpImage;
-    UIImage* tmpUImage;
-    CIFilter* filter1;
-    CIFilter* filter2;
-    CIFilter* filter3;
-    CIFilter* filter4;
+    CIContext *ctx;
+    CIImage *tmpImage;
+    UIImage *tmpUImage;
+    CIFilter *filter1;
+    CIFilter *filter2;
+    CIFilter *filter3;
+    CIFilter *filter4;
     NSArray *characterNames;
+    FilterState filterState;
 }
 
+@property (nonatomic, readwrite, strong) UILabel *lab;
 @end
 
 @implementation PicViewModel
 
-enum filterStatus{
-    filter_1,filter_2,filter_3,filter_4
-} filterState;
-
--(instancetype)init
+- (instancetype)init
 {
     if (self = [super init]) {
-        
         [self bindEvents];
-        
     }
-    
     return self;
 }
 
--(void)bindEvents
+- (void)bindEvents
 {
     _picCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         
         [self viewWillAppear];
-        
             RACSignal *sig = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-               
                 
                 return nil;
             }];
-            
-            
+
             return sig;
         }];
 }
 
--(void)viewWillAppear
+- (void)viewWillAppear
 {
     imagePicker = [[UIImagePickerController alloc] init];
     imagePicker.delegate = self;
@@ -85,7 +77,13 @@ enum filterStatus{
     gesture.direction = 1 << 0;//right
     [self.imageView addGestureRecognizer:gesture];
 
-    self.picBtn = [self.picBtn initWithTitle:@"图片" style:UIBarButtonItemStylePlain target:self action:@selector(docPicture)];
+    UITapGestureRecognizer *gesture1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(docPicture)];
+    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 120, 64)];
+    lab.text = @"图片";
+    lab.userInteractionEnabled = YES;
+    [lab addGestureRecognizer:gesture1];
+    [self.picBtn setCustomView:lab];
+    self.lab = lab;
     
     [[self.dealB rac_signalForControlEvents:UIControlEventTouchDown]subscribeNext:^(id x) {
         switch (filterState) {
@@ -152,7 +150,6 @@ enum filterStatus{
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.imageView setImage:tmpUImage];
-                
             });
          });
     }];
@@ -195,12 +192,13 @@ enum filterStatus{
 
 //合并图片和保存按键
 - (void)docPicture {
-    if ([self.picBtn.title  isEqual: @"图片"]) {
+    NSLog(@"ll");
+    if ([self.lab.text isEqual: @"图片"]) {
         [self.totalVc presentViewController:imagePicker animated:YES completion:nil];
-        self.picBtn.title = @"保存";
+        self.lab.text = @"保存";
     }else{
         UIImageWriteToSavedPhotosAlbum(self.imageView.image, nil, nil,nil);
-        self.picBtn.title = @"图片";
+        self.lab.text= @"图片";
     }
 }
 

@@ -16,12 +16,12 @@
 @property (weak, nonatomic) IBOutlet UISlider *sliderVal;
 @property (weak, nonatomic) IBOutlet UIButton *dealB;
 @property (weak, nonatomic) IBOutlet UIPickerView *picker;
-@property(nonatomic,strong) PicViewModel *pictureVM;
+@property (nonatomic, readwrite, strong) PicViewModel *pictureVM;
 @end
 
 @implementation ViewController
 
--(PicViewModel *)pictureVM
+- (PicViewModel *)pictureVM
 {
     if (_pictureVM == nil) {
         _pictureVM = [[PicViewModel alloc] init];
@@ -48,5 +48,6 @@
     }];
     
 }
+
 
 @end

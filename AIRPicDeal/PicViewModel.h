@@ -10,14 +10,17 @@
 #import <UIKit/UIKit.h>
 #import "GlobalHeader.h"
 
-@interface PicViewModel : NSObject<UIPickerViewDelegate,UIPickerViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+typedef NS_ENUM(NSInteger, FilterState){
+    filter_1,filter_2,filter_3,filter_4
+};
+@interface PicViewModel : NSObject<UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
-@property (strong, nonatomic)  UIImageView *imageView;
-@property (strong, nonatomic)  UIBarButtonItem *picBtn;
-@property (strong, nonatomic)  UISlider *sliderVal;
-@property (strong, nonatomic)  UIButton *dealB;
-@property (strong, nonatomic)  UIPickerView *picker;
-@property (strong, nonatomic) UIViewController *totalVc;
-@property (nonatomic,strong) RACCommand *picCommand;
+@property (nonatomic, readwrite, weak)  UIImageView *imageView;
+@property (nonatomic, readwrite, weak)  UIBarButtonItem *picBtn;
+@property (nonatomic, readwrite, weak)  UISlider *sliderVal;
+@property (nonatomic, readwrite, weak)  UIButton *dealB;
+@property (nonatomic, readwrite, weak)  UIPickerView *picker;
+@property (nonatomic, readwrite, weak) UIViewController *totalVc;
+@property (nonatomic, readwrite, strong, nonnull) RACCommand *picCommand;
 
 @end
