@@ -9,16 +9,12 @@
 #import "PicViewModel.h"
 
 @interface PicViewModel(){
-    UIImagePickerController *imagePicker;
-    CIContext *ctx;
-    CIImage *tmpImage;
-    UIImage *tmpUImage;
-    CIFilter *filter1;
-    CIFilter *filter2;
-    CIFilter *filter3;
-    CIFilter *filter4;
-    NSArray *characterNames;
-    FilterState filterState;
+    UIImagePickerController *_imagePicker;
+    CIContext *_ctx;
+    CIImage *_tmpImage;
+    CIFilter *_filter;
+    NSArray *_characterNames;
+    NSInteger _currentItemIndex;
 }
 
 @property (nonatomic, readwrite, strong) UILabel *lab;
@@ -39,31 +35,25 @@
     _picCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         
         [self viewWillAppear];
-            RACSignal *sig = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-                
-                return nil;
-            }];
-
-            return sig;
+        RACSignal *sig = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+            
+            return nil;
         }];
+
+        return sig;
+    }];
 }
 
 - (void)viewWillAppear
 {
-    imagePicker = [[UIImagePickerController alloc] init];
-    imagePicker.delegate = self;
+    _imagePicker = [[UIImagePickerController alloc] init];
+    _imagePicker.delegate = self;
     
-    ctx = [CIContext contextWithOptions: nil];
+    _ctx = [CIContext contextWithOptions: nil];
     
-    filter1 = [CIFilter filterWithName:@"CIGaussianBlur"];
-    filter2 = [CIFilter filterWithName:@"CIBumpDistortion"];
-    filter3 = [CIFilter filterWithName:@"CIHueAdjust"];
-    filter4 = [CIFilter filterWithName:@"CIPixellate"];
+    [self hiddenController];
     
-    [self showSome:false];
-    [self showPicker:false];
-    
-    characterNames = [[NSArray alloc] initWithObjects:@"模糊",@"鱼眼",@"颜色",@"像素", nil];
+    _characterNames = [[NSArray alloc] initWithObjects:@"模糊",@"鱼眼",@"颜色",@"像素", nil];
     
     self.picker.delegate = self;
     self.picker.dataSource = self;
@@ -82,119 +72,108 @@
     lab.text = @"图片";
     lab.userInteractionEnabled = YES;
     [lab addGestureRecognizer:gesture1];
-    [self.picBtn setCustomView:lab];
+    [self.picItem setCustomView:lab];
+    [self.picItem setAction:@selector(docPicture)];
+    
     self.lab = lab;
     
-    [[self.dealB rac_signalForControlEvents:UIControlEventTouchDown]subscribeNext:^(id x) {
-        switch (filterState) {
-            case filter_1:
-                tmpImage = [filter1 outputImage];
-                self.sliderVal.value = 0.5;
-                break;
-            case filter_2:
-                tmpImage = [filter2 outputImage];
-                self.sliderVal.value = 0.5;
-                break;
-            case filter_3:
-                tmpImage = [filter3 outputImage];
-                self.sliderVal.value = 0.5;
-                break;
-            case filter_4:
-                tmpImage = [filter4 outputImage];
-                self.sliderVal.value = 0.5;
-                break;
-            default:
-                break;
-        }
+    [[self.dealBtn rac_signalForControlEvents:UIControlEventTouchDown]subscribeNext:^(id x) {
         
-        [self showSome:false];
-        [self showPicker:false];
-    }];
-    
-    [[self.sliderVal rac_newValueChannelWithNilValue:nil] subscribeNext:^(NSNumber* x) {
+        CGFloat slideValue = self.valSlider.value;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-            CGFloat slideValue = x.floatValue;
-            CIImage* outImage;
-            
-            switch (filterState) {
-                case filter_1:
-                    [filter1 setValue:tmpImage forKey:@"inputImage"];
-                    [filter1 setValue:[NSNumber numberWithFloat:slideValue] forKey:@"inputRadius"];
-                    outImage = [filter1 outputImage];
+            switch (_currentItemIndex) {
+                case 0:
+                    _filter = [CIFilter filterWithName:@"CIGaussianBlur"];
+                    [_filter setValue:[NSNumber numberWithFloat:slideValue] forKey:@"inputRadius"];
                     break;
-                case filter_2:
-                    [filter2 setValue:tmpImage forKey:@"inputImage"];
-                    [filter2 setValue:[CIVector vectorWithX:150 Y:240]forKey:@"inputCenter"];
-                    [filter2 setValue:[NSNumber numberWithFloat:150]forKey:@"inputRadius"];
-                    [filter2 setValue:[NSNumber numberWithFloat:slideValue]forKey:@"inputScale"];
-                    outImage = [filter2 outputImage];
+                case 1:
+                    _filter = [CIFilter filterWithName:@"CIBumpDistortion"];
+                    [_filter setValue:[CIVector vectorWithX:150 Y:240]forKey:@"inputCenter"];
+                    [_filter setValue:[NSNumber numberWithFloat:150]forKey:@"inputRadius"];
+                    [_filter setValue:[NSNumber numberWithFloat:slideValue]forKey:@"inputScale"];
                     break;
-                case filter_3:
-                    [filter3 setValue:tmpImage forKey:@"inputImage"];
-                    [filter3 setValue:[NSNumber numberWithFloat:slideValue] forKey:@"inputAngle"];
-                    outImage = [filter3 outputImage];
+                case 2:
+                    _filter = [CIFilter filterWithName:@"CIHueAdjust"];
+                    [_filter setValue:[NSNumber numberWithFloat:slideValue] forKey:@"inputAngle"];
                     break;
-                case filter_4:
-                    [filter4 setValue:tmpImage forKey:@"inputImage"];
-                    [filter4 setValue:[CIVector vectorWithX:150 Y:240]forKey:@"inputCenter"];
-                    [filter4 setValue:[NSNumber numberWithFloat:slideValue]forKey:@"inputScale"];
-                    outImage = [filter4 outputImage];
+                case 3:
+                    _filter = [CIFilter filterWithName:@"CIPixellate"];
+                    [_filter setValue:[CIVector vectorWithX:150 Y:240]forKey:@"inputCenter"];
+                    [_filter setValue:[NSNumber numberWithFloat:slideValue]forKey:@"inputScale"];
                     break;
                 default:
                     break;
             }
             
-            CGImageRef tmp = [ctx createCGImage:outImage fromRect:[outImage extent]];
-            tmpUImage = [UIImage imageWithCGImage:tmp];
+            [_filter setValue:_tmpImage forKey:@"inputImage"];
+            CIImage* outImage = [_filter outputImage];
+            CGImageRef tmp = [_ctx createCGImage:outImage fromRect:[outImage extent]];
+            UIImage* tmpUImage = [UIImage imageWithCGImage:tmp];
             CGImageRelease(tmp);
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.imageView setImage:tmpUImage];
+                
+                _tmpImage = outImage;
+                self.valSlider.value = 0.5f;
             });
-         });
+        });
+        
+        [self hiddenController];
     }];
 }
 
 - (void)leftGesture:(UISwipeGestureRecognizer *)ges
 {
-    [self showPicker:YES];
+    [self showController];
 }
 
-//显示和隐藏slider和确定
-- (void)showSome:(BOOL) decide
-{
-    if (decide) {
-        self.sliderVal.enabled = true;
-        self.sliderVal.alpha = 1;
-        self.dealB.enabled = true;
-        self.dealB.alpha = 1;
-    }else{
-        self.sliderVal.enabled = false;
-        self.sliderVal.alpha = 0;
-        self.dealB.enabled = false;
-        self.dealB.alpha = 0;
+- (void)hiddenController{
+    self.valSlider.enabled = NO;
+    self.valSlider.alpha = 0;
+    self.dealBtn.enabled = NO;
+    self.dealBtn.alpha = 0;
+    
+    self.picker.hidden = YES;
+}
+
+- (void)showController{
+    self.valSlider.enabled = YES;
+    self.valSlider.alpha = 1;
+    self.dealBtn.enabled = YES;
+    self.dealBtn.alpha = 1;
+    
+    self.picker.hidden = NO;
+    
+    switch (_currentItemIndex) {
+        case 0:
+            [self setSliderValRange:0 and:10];
+            break;
+        case 1:
+            [self setSliderValRange:-4 and:4];
+            break;
+        case 2:
+            [self setSliderValRange:-6.28 and:6.28];
+            break;
+        case 3:
+            [self setSliderValRange:0 and:30];
+            break;
+            
+        default:
+            break;
     }
 }
 
-//picker的显示与隐藏
-- (void)showPicker:(BOOL) decide
-{
-    self.picker.hidden = !decide;
-}
-
-//根据四类滤镜选择范围
 - (void)setSliderValRange:(float) min and:(float)max
 {
-    self.sliderVal.minimumValue = min;
-    self.sliderVal.maximumValue = max;
-    self.sliderVal.value = 0.5;
+    self.valSlider.minimumValue = min;
+    self.valSlider.maximumValue = max;
+    self.valSlider.value = 0.5;
 }
 
-//合并图片和保存按键
 - (void)docPicture {
-    NSLog(@"ll");
-    if ([self.lab.text isEqual: @"图片"]) {
-        [self.totalVc presentViewController:imagePicker animated:YES completion:nil];
+    if ([self.lab.text isEqualToString:@"图片"]) {
+        [self.totalVc presentViewController:_imagePicker animated:YES completion:nil];
         self.lab.text = @"保存";
     }else{
         UIImageWriteToSavedPhotosAlbum(self.imageView.image, nil, nil,nil);
@@ -205,13 +184,12 @@
 #pragma mark - imagePickerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
-    
     [self.totalVc dismissViewControllerAnimated:YES completion:nil];
     UIImage *selectedImage = [info objectForKey:UIImagePickerControllerOriginalImage];
     
     UIImage *tinyImage = [self transImage:selectedImage];
     self.imageView.image = tinyImage;
-    tmpImage = [CIImage imageWithCGImage:tinyImage.CGImage];
+    _tmpImage = [CIImage imageWithCGImage:tinyImage.CGImage];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
@@ -227,7 +205,7 @@
 - (NSInteger)pickerView:(UIPickerView *)pickerView
 numberOfRowsInComponent:(NSInteger)component
 {
-    return [characterNames count];
+    return [_characterNames count];
 }
 
 #pragma mark Picker Delegate Methods
@@ -235,30 +213,13 @@ numberOfRowsInComponent:(NSInteger)component
              titleForRow:(NSInteger)row
             forComponent:(NSInteger)component
 {
-    return characterNames[row];
+    return _characterNames[row];
 }
 
-//选择相应的滤镜
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    NSString *selectStr = [NSString stringWithString:characterNames[row]];
-    if ([selectStr  isEqualToString: @"模糊"]) {
-        [self setSliderValRange:0 and:10];
-        [self showSome:true];
-        filterState = filter_1;
-    }else if([selectStr isEqualToString:@"鱼眼"]){
-        [self setSliderValRange:-4 and:4];
-        [self showSome:true];
-        filterState = filter_2;
-    }else if([selectStr isEqualToString:@"颜色"]){
-        [self setSliderValRange:-6.28 and:6.28];
-        [self showSome:true];
-        filterState = filter_3;
-    }else{
-        [self setSliderValRange:0 and:30];
-        [self showSome:true];
-        filterState = filter_4;
-    }
+    _currentItemIndex = row;
+    [self showController];
 }
 
 - (UIImage *)transImage:(UIImage *)image//图片转换成小图

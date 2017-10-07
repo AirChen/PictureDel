@@ -7,8 +7,8 @@
 //
 
 #import "ReactiveCocoa.h"
-#define SCREEN_With self.totalVc.view.bounds.size.width
-#define SCREEN_Height self.totalVc.view.bounds.size.height
+#define SCREEN_With [UIScreen mainScreen].bounds.size.width
+#define SCREEN_Height [UIScreen mainScreen].bounds.size.height
 
 
 #ifndef GlobalHeader_h
