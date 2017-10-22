@@ -14,7 +14,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *picItem;
 @property (weak, nonatomic) IBOutlet UISlider *valSlider;
-@property (weak, nonatomic) IBOutlet UIButton *dealBtn;
 @property (weak, nonatomic) IBOutlet UIPickerView *picker;
 @property (nonatomic, readwrite, strong) PicViewModel *pictureVM;
 @end
@@ -29,7 +28,6 @@
         _pictureVM.imageView = self.imageView;
         _pictureVM.picItem = self.picItem;
         _pictureVM.valSlider = self.valSlider;
-        _pictureVM.dealBtn = self.dealBtn;
         _pictureVM.picker = self.picker;
         _pictureVM.totalVc = self;
     }

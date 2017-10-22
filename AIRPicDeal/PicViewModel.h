@@ -15,7 +15,6 @@
 @property (nonatomic, readwrite, weak)  UIImageView * _Nullable imageView;
 @property (nonatomic, readwrite, weak)  UIBarButtonItem * _Nullable picItem;
 @property (nonatomic, readwrite, weak)  UISlider * _Nullable valSlider;
-@property (nonatomic, readwrite, weak)  UIButton * _Nullable dealBtn;
 @property (nonatomic, readwrite, weak)  UIPickerView * _Nullable picker;
 @property (nonatomic, readwrite, weak) UIViewController * _Nullable totalVc;
 @property (nonatomic, readwrite, strong, nonnull) RACCommand *picCommand;

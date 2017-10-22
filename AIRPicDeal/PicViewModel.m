@@ -77,9 +77,9 @@
     
     self.lab = lab;
     
-    [[self.dealBtn rac_signalForControlEvents:UIControlEventTouchDown]subscribeNext:^(id x) {
-        
-        CGFloat slideValue = self.valSlider.value;
+    self.valSlider.continuous = NO;
+    [[self.valSlider rac_newValueChannelWithNilValue:nil] subscribeNext:^(NSNumber* x) {
+        CGFloat slideValue = [x floatValue];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
             switch (_currentItemIndex) {
                 case 0:
@@ -121,6 +121,7 @@
         
         [self hiddenController];
     }];
+
 }
 
 - (void)leftGesture:(UISwipeGestureRecognizer *)ges
@@ -131,8 +132,6 @@
 - (void)hiddenController{
     self.valSlider.enabled = NO;
     self.valSlider.alpha = 0;
-    self.dealBtn.enabled = NO;
-    self.dealBtn.alpha = 0;
     
     self.picker.hidden = YES;
 }
@@ -140,8 +139,6 @@
 - (void)showController{
     self.valSlider.enabled = YES;
     self.valSlider.alpha = 1;
-    self.dealBtn.enabled = YES;
-    self.dealBtn.alpha = 1;
     
     self.picker.hidden = NO;
     
@@ -222,12 +219,12 @@ numberOfRowsInComponent:(NSInteger)component
     [self showController];
 }
 
-- (UIImage *)transImage:(UIImage *)image//图片转换成小图
+//图片转换成小图
+- (UIImage *)transImage:(UIImage *)image
 {
     CGSize origImageSize = image.size;
     CGRect newRect = CGRectMake(0, 0,SCREEN_With,SCREEN_Height);
     //    得到的图片尺寸
-    
     float ratio = MAX(newRect.size.width / origImageSize.width, newRect.size.height / origImageSize.height);
     
     UIGraphicsBeginImageContextWithOptions(newRect.size, NO, 0.0);//根据当前设备屏幕的scaling factor创建透明的位图上下文
